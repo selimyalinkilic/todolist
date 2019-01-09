@@ -80,17 +80,19 @@ function displayTodos(){ // displaying todos on html
   if(todosArray.length <= 0){
     output += '<h5>Todolist is empty</h5>';
     todosCount = 0;
+    $("#clear-todos").attr("style","pointer-events: none;opacity: 0.5;");
   }else{
     for(let i in todosArray){
-    let todo = todosArray[i];
-    let name = todo.name;
-    let date = todo.date;
-    todosCount = todosArray.length;
-    output += `<li class="list-group-item d-flex justify-content-between">
-              <p class="float-left mb-0 w-75 text-content" style="font-size: 14px;">${name}</p>
-              <span class="float-left mb-0 w-25 text-center" style="font-size: 14px;">${date}</span>
-              <a href="javascript:;" class="delete-item float-right"><i class="fa fa-remove"></i></a>
-              </li>`;
+      let todo = todosArray[i];
+      let name = todo.name;
+      let date = todo.date;
+      todosCount = todosArray.length;
+      output += `<li class="list-group-item d-flex justify-content-between">
+                <p class="float-left mb-0 w-75 text-content" style="font-size: 14px;">${name}</p>
+                <span class="float-left mb-0 w-25 text-center" style="font-size: 14px;">${date}</span>
+                <a href="javascript:;" class="delete-item float-right"><i class="fa fa-remove"></i></a>
+                </li>`;
+      $("#clear-todos").attr("style","pointer-events: cursor;opacity: 1;");
     }
   }
   $(".list-group").html(output);
@@ -151,9 +153,6 @@ $(".btn-add").click(function(event){ // adding click event
 });
 $("#clear-todos").click(function(event){ // clear todos
   if(confirm("Are you sure you want to delete all of them?")){
-    while(todolist.firstElementChild !=  null){
-      todoList.removeChild(todolist.firstElementChild);
-    }
     todolist.clearAllTodos();
     showAlert("success", "The entire todolist was successfully cleaned.");
     displayTodos();
