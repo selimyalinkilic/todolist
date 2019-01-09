@@ -90,7 +90,7 @@ function displayTodos(){ // displaying todos on html
       output += `<li class="list-group-item d-flex justify-content-between">
                 <p class="float-left mb-0 w-75 text-content" style="font-size: 14px;">${name}</p>
                 <span class="float-left mb-0 w-25 text-center" style="font-size: 14px;">${date}</span>
-                <a href="javascript:;" class="delete-item float-right"><i class="fa fa-remove"></i></a>
+                <a href="javascript:;" class="delete-item float-right"><i class="fa fa-remove" data-name="${name}"></i></a>
                 </li>`;
       $("#clear-todos").attr("style","pointer-events: cursor;opacity: 1;");
     }
@@ -137,9 +137,6 @@ $(".btn-add").click(function(event){ // adding click event
       todolist.addTodo(name, date);
       showAlert("success", "Todo was successfully added");
       $("#todo").val("");
-        window.setTimeout(function(){
-          location.reload();
-        },2500);
     }else{
       $("#todo").val("");
       showAlert("danger", "This todo is already available in todo list. Please enter a new todo!");
@@ -159,17 +156,11 @@ $("#clear-todos").click(function(event){ // clear todos
   }
 });  
      
-
-$(".fa-remove").click(function(){ // remove todos event
-  let parent = $(this).parent().parent();
-  let name = parent.find(".text-content").text();
+$(".list-group").on("click", ".fa.fa-remove", function(event){ // remove 
+  var name = $(this).attr("data-name");
   todolist.removeTodo(name);
   showAlert("success"," "+name+" is removed from the localstorage.");
   displayTodos();
-  window.setTimeout(function(){
-    location.reload();
-  },2500);
-});
-       
+});   
 
 
