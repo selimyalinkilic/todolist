@@ -135,7 +135,7 @@ $(".btn-add").click(function(event){ // adding click event
   }else{
     if(!control){
       todolist.addTodo(name, date);
-      showAlert("success", "Todo was successfully added");
+      showAlert("success"," "+name+" is successfully added.");
       $("#todo").val("");
     }else{
       $("#todo").val("");
